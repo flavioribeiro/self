@@ -1,55 +1,63 @@
-" Thanks to osantana (osantana@gmail.com)
 
-" Color (light bg)
-set background=light
-colorscheme delek
-
-set incsearch
+syntax on
+set encoding=utf-8
+set fileformat=unix
 set number
 
-" Color (dark bg)
-" set background=dark
-" colorscheme elflord
-
-" General settings
-set nocompatible
-set nojoinspaces
-set ruler
-set hidden
-set incsearch
-set autowrite
-set showcmd
-set showmatch
-set nohlsearch
-set noignorecase
-set nojoinspaces
-set nobackup
-set textwidth=0 nowrap
-set completeopt=menu,preview
-
-" Tab/Indent config
-" 4 soft-space tabs for all kind of documents
 set expandtab
-set smarttab
+set ignorecase
+set nowrap
+set shiftround " when at 3 spaces, and I hit > ... go to 4, not 5
+set smartcase " if there are caps, go case-sensitive
+set shiftwidth=4
+set softtabstop=4
+set tabstop=8
+"set smarttab
+
+filetype on
+filetype plugin on
 set autoindent
-set smartindent
-set shiftwidth=4 tabstop=4 softtabstop=4
 
-" No beeps
+"set foldmethod=indent
+
+" Enable bash-like completion
+" 1 tab: complete
+" 2 tabs: show list
+" 3 tabs: cycle
+set wildmode=longest,list,full
+set wildmenu
+
 set visualbell
+set mouse=a
+set ruler " Always show current positions along the bottom
+set title
+set nostartofline " leave my cursor where it was
+set nobackup
 
-" Doh... you know what this does... ;-)
-syntax on
+set laststatus=2 " always show the status line
+set statusline=%f\ %y%=[%L-%l,%v]
+"set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v
+ "              | | | | |  |   |      |  |     |    |
+ "              | | | | |  |   |      |  |     |    + current 
+ "              | | | | |  |   |      |  |     |       column
+ "              | | | | |  |   |      |  |     +-- current line
+ "              | | | | |  |   |      |  +-- current % into file
+ "              | | | | |  |   |      +-- current syntax in 
+ "              | | | | |  |   |          square brackets
+ "              | | | | |  |   +-- current fileformat
+ "              | | | | |  +-- number of lines
+ "              | | | | +-- preview flag in square brackets
+ "              | | | +-- help flag in square brackets
+ "              | | +-- readonly flag in square brackets
+ "              | +-- rodified flag in square brackets
+ "              +-- full path to file in the buffer
 
-" Some useful abbreviations to common mistyped commands
-cab W w | cab Q q | cab Wq wq | cab wQ wq | cab WQ wq
+set cursorline
 
 " Comment/Uncomment for different languages
-au FileType haskell,vhdl,ada            let comment = '-- '
-au FileType sh,make,python              let comment = '# '
-au FileType c,cpp,java,javascript       let comment = '// '
-au FileType tex                         let comment = '% '
-au FileType vim                         let comment = '" '
+au FileType sh,make,python              let comment = '#'
+au FileType c,cpp,java,javascript       let comment = '//'
+au FileType vim                         let comment = '"'
 
 " Comment Blocks
 " ,c -> comment selected
@@ -57,27 +65,15 @@ au FileType vim                         let comment = '" '
 noremap <silent> ,c :s,^,<C-R>=comment<CR>,<CR>:noh<CR>
 noremap <silent> ,u :s,^\V<C-R>=comment<CR>,,e<CR>:noh<CR>
 
-" Highlight trailing whitespaces
-highlight WhitespaceEOL ctermbg=red guibg=red
-match WhitespaceEOL /\s\+$/
-
-" ,a -> clean all trailing spaces
-noremap <silent> ,a :%s,\s\+$,,<CR>
+" CommandT
+"noremap <C-t> :<C-u>CommandT<CR>
 
 " Python
-let python_highlight_all = 1
-au BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+"let python_highlight_all = 1
+au BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with,not
 
-" Highlight TODO's with red color
-highlight Todo       ctermfg=White   ctermbg=Red cterm=Bold
-highlight Todo       guifg=#ffffff guibg=#96a6c8 cterm=Bold
+if has("gui_running")
+    set transparency=10
+endif
 
-" Terminal.app keyboard settings
-map <Esc>[H <Home>
-imap <Esc>[H <Home>
-map <Esc>[F <End>
-imap <Esc>[F <End>
-map <Esc>[5~ <PageUp>
-imap <Esc>[5~ <PageUp>
-map <Esc>[6~ <PageDown>
-imap <Esc>[6~ <PageDown>
+
