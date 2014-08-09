@@ -1,0 +1,37 @@
+[core]
+        editor = /usr/bin/vim
+[alias]
+  cm = commit -m
+  st = status --short
+  co = checkout
+  logg = log --graph --color --decorate
+  loga = log --graph --color --pretty='format:%C(yellow)%h%C(cyan)%d %Creset  %s %C(blue)%an, %ar' --date-order --all
+  logt = log --graph --color --pretty='format:%C(yellow)%h%C(cyan)%d %Creset  %s %C(blue)%an, %ar' --date-order
+  last = cat-file commit HEAD
+  tags = log --tags --date-order --simplify-by-decoration --pretty='format:%ai %d'
+[user]
+		name = Flávio Ribeiro
+		email = flavio.ribeiro@corp.globo.com
+[color]
+	ui = true
+    branch = auto
+    diff = auto
+    status = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow 
+    frag = magenta 
+    old = red 
+    new = green 
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[diff]
+        noprefix = true
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
